@@ -18,14 +18,14 @@ const resolvers = {
     Query: {
         getProducts: async (obj, args, context, info) => {
             const { category, avaible } = args
-
+                
             const products = await Product.find({ category: category })
             return products
         },
         searchProduct: async (obj, args, context, info) => {
             try {
                 const { search} = args
-                const products= await Product.find({ "name": { "$regex": search, "$options": "i" }  });
+                const products= await Product.find({$or:[{name: { "$regex": search, "$options": "i" }},{descrip: { "$regex": search, "$options": "i" }},{category: { "$regex": search, "$options": "i" }}] });
                 
              return products
             } catch (error) {
