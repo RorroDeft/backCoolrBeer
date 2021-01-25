@@ -4,6 +4,7 @@ const typeDefs = gql`
 
 type Query {
     getProducts(category:String) : [Product]
+    searchProduct(search:String) : [Product]
 }
 
 

@@ -18,9 +18,20 @@ const resolvers = {
     Query: {
         getProducts: async (obj, args, context, info) => {
             const { category, avaible } = args
-  
-            const products = await Product.find({category:category})
+
+            const products = await Product.find({ category: category })
             return products
+        },
+        searchProduct: async (obj, args, context, info) => {
+            try {
+                const { search} = args
+                const products= await Product.find({ "name": { "$regex": search, "$options": "i" }  });
+                
+             return products
+            } catch (error) {
+                console.log(error)
+            }
+
         }
     },
     Mutation: {
